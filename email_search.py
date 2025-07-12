@@ -6,7 +6,7 @@ class EmailSearch:
     def __init__(self, gmail_client):
         self.gmail_client = gmail_client
     
-    def search_emails_by_date(self, date_query, limit=10):
+    def search_emails_by_date(self, date_query, limit=50):
         """Enhanced date search with month/year range support"""
         parsed_date, date_type = parse_date_query(date_query)
         print("🔍 Parsing date query: '{date_query}' → Parsed: {parsed_date} (Type: {date_type}")
@@ -66,7 +66,7 @@ class EmailSearch:
             print(f"❌ Date search error: {str(e)}")
             return []
     
-    def search_emails_by_query(self, query, limit=20, sort_by="date"):
+    def search_emails_by_query(self, query, limit=50, sort_by="date"):
         """Search emails by query with improved sorting options"""
         related_words = get_related_words(query)
         print(f"🔍 Search terms: {related_words}")

@@ -3,7 +3,7 @@ EMAIL = None
 PASSWORD = None
 
 # Default settings
-DEFAULT_EMAIL_LIMIT = 20
+DEFAULT_EMAIL_LIMIT = 50
 DEFAULT_DATE_LIMIT = 10
 
 # IMAP settings

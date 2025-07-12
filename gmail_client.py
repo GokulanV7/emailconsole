@@ -47,15 +47,16 @@ class GmailClient:
             except:
                 pass
     
-    def fetch_email_list(self, email_numbers=None, limit=20):
+    def fetch_email_list(self, email_numbers=None, limit=50):
         """Fetch email list with basic info"""
         if email_numbers is None:
-            # Get recent emails
+            # Get emails with a default limit
             result, data = self.imap.search(None, 'ALL')
             if result == 'OK' and data[0]:
                 email_numbers = data[0].split()
                 # Sort by most recent first
                 email_numbers = sorted(email_numbers, key=int, reverse=True)
+                # Apply default limit of 50
                 email_numbers = email_numbers[:limit]
         
         emails = []

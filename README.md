@@ -2,7 +2,40 @@
 
 A powerful command-line Gmail client with advanced search capabilities, smart sorting, and intuitive interface. Built with Python and designed for productivity.
 
-## ✨ Features
+### ✨ Features
+
+### 📸 Screenshots
+Here's what it looks like in action:
+
+#### 🚀 Application Startup
+![Application Startup](images/output1.png)
+
+#### 📧 Main Menu Interface
+![Main Menu Interface](images/output2.png)
+
+#### 📋 Email List View
+![Email List View](images/output3.png)
+
+#### 🔍 Individual Email View
+![Individual Email View](images/output4.png)
+
+#### 🔎 Search Functionality
+![Search Functionality](images/output5.png)
+
+#### 📅 Date Search Feature
+![Date Search Feature](images/output6.png)
+
+#### ⭐ Smart Search Results
+![Smart Search Results](images/output7.png)
+
+#### 🎯 Advanced Query Search
+![Advanced Query Search](images/output8.png)
+
+#### 📊 Search with Relevance Scoring
+![Search with Relevance Scoring](images/output9.png)
+
+#### 🔄 Email Fetching Process
+![Email Fetching Process](images/output10.png)
 
 ### 🚀 Core Functionality
 - **IMAP-based Gmail Access**: Secure connection to Gmail using IMAP protocol
@@ -101,6 +134,24 @@ The application will prompt for your Gmail credentials:
 - **Email**: Your Gmail address
 - **Password**: Your Gmail password or App Password
 
+### 🎆 Feature Showcase
+
+#### 📧 Email List Management
+![Email List Management](images/output3.png)
+*Browse through your recent emails with UID, sender, subject, and date information*
+
+#### 🔍 Advanced Search Capabilities
+![Advanced Search](images/output5.png)
+*Search emails using intelligent query processing with WordNet expansion*
+
+#### 📅 Flexible Date Filtering
+![Date Filtering](images/output6.png)
+*Search emails by date using natural language or specific date formats*
+
+#### 📊 Relevance Scoring
+![Relevance Scoring](images/output9.png)
+*Get search results ranked by relevance with scoring system*
+
 ### Menu Options
 
 #### 1. 📧 Email List (Recent 20)
@@ -152,6 +203,54 @@ Flexible date search with multiple formats:
 
 #### 5. 🚪 Exit
 Gracefully disconnect and exit the application.
+
+## 📊 Application Flow
+
+```mermaid
+flowchart TD
+    A[🚀 Start Application] --> B[🔑 Enter Credentials]
+    B --> C{🔒 IMAP Login}
+    C -->|Success| D[📧 Connected to Gmail]
+    C -->|Failed| E[❌ Authentication Failed]
+    E --> F[🚪 Exit]
+    
+    D --> G[📋 Show Main Menu]
+    G --> H{User Choice}
+    
+    H -->|1| I[📧 Fetch Recent Emails]
+    H -->|2| J[🔍 View Email by UID]
+    H -->|3| K[🔎 Search by Query]
+    H -->|4| L[📅 Search by Date]
+    H -->|5| M[🚪 Exit]
+    
+    I --> N[📋 Display Email List]
+    N --> G
+    
+    J --> O[🔢 Enter UID]
+    O --> P[📄 Display Email Details]
+    P --> G
+    
+    K --> Q[🔍 Enter Search Query]
+    Q --> R[🧠 WordNet Expansion]
+    R --> S[📊 Calculate Relevance]
+    S --> T[📋 Display Sorted Results]
+    T --> G
+    
+    L --> U[📅 Enter Date Query]
+    U --> V[📅 Parse Date Format]
+    V --> W[📅 Filter by Date]
+    W --> X[📋 Display Date Results]
+    X --> G
+    
+    M --> Y[🔌 Disconnect IMAP]
+    Y --> F
+    
+    style A fill:#e1f5fe
+    style D fill:#c8e6c9
+    style E fill:#ffcdd2
+    style F fill:#f3e5f5
+    style G fill:#fff3e0
+```
 
 ## 📁 Project Structure
 

@@ -43,7 +43,7 @@ def main():
     while True:
         try:
             print("\n📋 MENU:")
-            print("1. 📧 Email List (Recent 20)")
+            print("1. 📧 Email List (Recent 50)")
             print("2. 🔍 Email by UID (Brief View)")
             print("3. 🔎 Search Emails by Query")
             print("4. 📅 Search by Date")
