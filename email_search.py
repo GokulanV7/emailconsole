@@ -9,6 +9,7 @@ class EmailSearch:
     def search_emails_by_date(self, date_query, limit=10):
         """Enhanced date search with month/year range support"""
         parsed_date, date_type = parse_date_query(date_query)
+        print("🔍 Parsing date query: '{date_query}' → Parsed: {parsed_date} (Type: {date_type}")
         
         if not parsed_date:
             print(f"❌ Could not parse date: '{date_query}'")
