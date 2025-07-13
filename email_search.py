@@ -174,7 +174,7 @@ class EmailSearch:
             print(f"🔍 Searching for emails from {start_date_str} to {end_date_str}")
             
             # Add one day to end_date for BEFORE search (IMAP BEFORE is exclusive)
-            end_date_plus_one = end_date + datetime.timedelta(days=1)
+            end_date_plus_one = end_date + timedelta(days=1)
             end_date_plus_one_str = end_date_plus_one.strftime("%d-%b-%Y")
             
             result, data = self.gmail_client.imap.search(None, 
