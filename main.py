@@ -125,8 +125,21 @@ def main():
                     # Prompt user for additional query
                     query = input("\nEnter additional query for this range (or press Enter to skip): ").strip()
                     if query:
-                        print(f"\n🔄 Searching for: {query} (additional query within date range)")
-                        current_emails = email_search.search_emails_by_query(query, limit=len(current_emails), sort_by='smart')
+                        print(f"\n🔄 Filtering for: {query} (within selected date range)")
+                        # Filter the already fetched emails from the date range
+                        from search_utils import get_related_words
+                        related_words = get_related_words(query)
+                        print(f"🔍 Filter terms: {related_words}")
+                        
+                        filtered_emails = []
+                        for email in current_emails:
+                            email_text = (email['subject'] + ' ' + email['from'] + ' ' + email.get('body', '')).lower()
+                            # Check if any of the related words are in the email
+                            if any(word.lower() in email_text for word in related_words):
+                                filtered_emails.append(email)
+                        
+                        current_emails = filtered_emails
+                        print(f"📧 Found {len(current_emails)} emails matching '{query}' in the selected date range")
                     
                     if current_emails:
                         display_email_list(current_emails)
