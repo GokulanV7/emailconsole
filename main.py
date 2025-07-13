@@ -125,9 +125,8 @@ def main():
                     # Prompt user for additional query
                     query = input("\nEnter additional query for this range (or press Enter to skip): ").strip()
                     if query:
-                        current_emails = [email for email in current_emails
-                                          if query.lower() in (email['subject'].lower() 
-                                          + email['from'].lower() + email.get('body', '').lower())]
+                        print(f"\n🔄 Searching for: {query} (additional query within date range)")
+                        current_emails = email_search.search_emails_by_query(query, limit=len(current_emails), sort_by='smart')
                     
                     if current_emails:
                         display_email_list(current_emails)
