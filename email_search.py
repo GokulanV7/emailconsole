@@ -163,3 +163,40 @@ class EmailSearch:
         ))
         
         return emails
+    
+    def search_emails_by_date_range(self, start_date, end_date, limit=50):
+        """Search emails within a specific date range"""
+        try:
+            # Convert dates to strings for IMAP search
+            start_date_str = start_date.strftime("%d-%b-%Y")
+            end_date_str = end_date.strftime("%d-%b-%Y")
+            
+            print(f"🔍 Searching for emails from {start_date_str} to {end_date_str}")
+            
+            # Add one day to end_date for BEFORE search (IMAP BEFORE is exclusive)
+            end_date_plus_one = end_date + datetime.timedelta(days=1)
+            end_date_plus_one_str = end_date_plus_one.strftime("%d-%b-%Y")
+            
+            result, data = self.gmail_client.imap.search(None, 
+                f'(SINCE "{start_date_str}" BEFORE "{end_date_plus_one_str}")')
+            
+            if result == 'OK' and data[0]:
+                email_numbers = data[0].split()
+                
+                # Sort by most recent first (newest to oldest)
+                email_numbers = sorted(email_numbers, key=int, reverse=True)
+                
+                if limit and len(email_numbers) > limit:
+                    email_numbers = email_numbers[:limit]
+                    print(f"📧 Found {len(data[0].split())} emails, showing first {limit}")
+                else:
+                    print(f"📧 Found {len(email_numbers)} emails")
+                
+                return self.gmail_client.fetch_email_list(email_numbers)
+            else:
+                print(f"❌ No emails found for the specified date range")
+                return []
+                
+        except Exception as e:
+            print(f"❌ Date range search error: {str(e)}")
+            return []

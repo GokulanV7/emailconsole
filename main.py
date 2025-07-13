@@ -4,6 +4,7 @@ from gmail_client import GmailClient
 from email_search import EmailSearch
 from display_utils import display_email_list, display_email_brief
 from config import EMAIL, PASSWORD, DEFAULT_EMAIL_LIMIT, DEFAULT_DATE_LIMIT
+from date_range_picker import get_date_range
 
 def signal_handler(sig, frame):
     """Handle keyboard interrupt (Ctrl+C) gracefully"""
@@ -47,9 +48,10 @@ def main():
             print("2. 🔍 Email by UID (Brief View)")
             print("3. 🔎 Search Emails by Query")
             print("4. 📅 Search by Date")
-            print("5. 🚪 Exit")
+            print("5. 📅 Date Range Picker (GUI)")
+            print("6. 🚪 Exit")
             
-            choice = input("\nEnter your choice (1-5): ").strip()
+            choice = input("\nEnter your choice (1-6): ").strip()
         except KeyboardInterrupt:
             print("\n\n👋 Goodbye! Exiting Gmail Client...")
             break
@@ -105,11 +107,47 @@ def main():
                 continue
                 
         elif choice == '5':
+            # Date Range Picker GUI
+            try:
+                print("\n📅 Opening Date Range Picker...")
+                print("💡 Use the GUI to select your date range!")
+                
+                date_range = get_date_range()
+                
+                if date_range['confirmed']:
+                    print("\n🔄 Searching emails in selected date range...")
+                    current_emails = email_search.search_emails_by_date_range(
+                        date_range['start_date'], 
+                        date_range['end_date'], 
+                        date_range['limit']
+                    )
+                    
+                    # Prompt user for additional query
+                    query = input("\nEnter additional query for this range (or press Enter to skip): ").strip()
+                    if query:
+                        current_emails = [email for email in current_emails
+                                          if query.lower() in (email['subject'].lower() 
+                                          + email['from'].lower() + email.get('body', '').lower())]
+                    
+                    if current_emails:
+                        display_email_list(current_emails)
+                    else:
+                        print("❌ No emails found containing the query within the selected range")
+                else:
+                    print("❌ Date range selection cancelled")
+            except KeyboardInterrupt:
+                print("\n❌ Operation cancelled")
+                continue
+            except Exception as e:
+                print(f"❌ Error with date range picker: {str(e)}")
+                continue
+                
+        elif choice == '6':
             print("\n👋 Goodbye!")
             break
             
         else:
-            print(f"❌ Invalid choice: '{choice}'. Please enter 1-5")
+            print(f"❌ Invalid choice: '{choice}'. Please enter 1-6")
     
     gmail.disconnect()
 
